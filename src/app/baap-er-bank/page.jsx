@@ -2,7 +2,7 @@ const BaapErBank = ()=>{
     return<>
     <div className="bg-white h-300">
    <div className="bg-blue-100 h-200">
-         <h1 className="text-blue-300 text-7xl ml-125 mb-25 pt-10">Let's get some <span className="text-blue-600">Mooooney</span>!!!</h1>
+         <h1 className="text-blue-300 text-7xl ml-125 mb-25 pt-10">Let&rsquo;s get some <span className="text-blue-600">Mooooney</span>!!!</h1>
 
         <div className="grid grid-cols-3 ml-50 ">
             <div className="bg-cyan-400 h-30 w-80 p-5 rounded-md">
