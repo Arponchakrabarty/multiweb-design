@@ -1,107 +1,203 @@
-"use client"
-import { useState } from "react"
+"use client";
+import { useState } from "react";
 
-const Calculator=() =>{
-    const [firstNum, setFirstNum]= useState("")
-    const [operator, setOperator]= useState("")
-    const [showOperator, setShowOperator] = useState("")
+const Calculator = () => {
+  const [firstNum, setFirstNum] = useState("");
+  const [operator, setOperator] = useState("");
+  const [showOperator, setShowOperator] = useState("");
 
-
-
-const output= (oppp)=>{
-  setFirstNum(num)
-  setOperator(oppp)
-  setShowOperator(oppp)
-  setNum("")
-
-}
-
-const finalResult=()=>{
-  if(operator==="+"){
-  setNum(Number(firstNum.toString())+Number(num.toString()))
-}
-else  if(operator==="-"){
-  setNum(Number(firstNum.toString())-Number(num.toString()))
-}
-else  if(operator==="*"){
-  setNum(Number(firstNum.toString())*Number(num.toString()))}
-
-  else  if(operator==="/"){
-  setNum(Number(firstNum.toString())*Number(num.toString()))}
-
-
- else if (operator === "%") {
-  setNum(Number(firstNum) / 100)
-}
-
-
-setFirstNum("")
-setOperator("")
-setShowOperator("")
-
-}
-  
-
-
-
-
-    const [num, setNum]=useState("")
-    console.log(num.length);
-    const changeNum= (numb)=>{
-      if(num.length===0 && numb===0){
-        console.log("first bar");
-        return
-      }
-      const newNum= num.toString()+numb.toString()
-      setNum(newNum)  
+  const output = (oppp) => {
+    // console.log(oppp, "ope");
+    if (oppp !== "%") {
+      setFirstNum(num);
+      setNum("");
     }
-    // console.log(num);
-    return<>
-    <div className="bg-white h-250 " >
-      <div className="bg-black w-55 flex flex-col items-center ml-200 mt-50 rounded-3xl gap-1"> 
-        <h1 className="border-2 border-black h-25 w-55 rounded-3xl flex justify-end items-end pr-2">{firstNum}{showOperator} {num} </h1>
+    // console.log(firstNum, "fist");
+    // console.log(num, "num");
+    setOperator(oppp);
+    setShowOperator(oppp);
+  };
 
+  const finalResult = () => {
+    if (operator === "+") {
+      setNum(Number(firstNum.toString()) + Number(num.toString()));
+    } else if (operator === "-") {
+      setNum(Number(firstNum.toString()) - Number(num.toString()));
+    } else if (operator === "*") {
+      setNum(Number(firstNum.toString()) * Number(num.toString()));
+    } else if (operator === "/") {
+      setNum(Number(firstNum.toString()) * Number(num.toString()));
+    } else if (operator === "%") {
+      console.log(firstNum, "firstnum");
+      console.log(num, "num");
+      setNum(Number(firstNum) * (num / 100));
+    }
 
-  
-      <div className="flex gap-2" >
-        
-        <button  onClick={()=>setNum(num.slice(0,num.length-1))} className="bg-gray-400 rounded-full  w-12 h-12 content-center text-white">⌫</button>
-        <button onClick={()=>setNum("")} className="bg-gray-400 rounded-full  w-12 h-12 content-center text-white">Ac</button>
-         <button onClick={()=>output("%")}  className="bg-gray-400 rounded-full  w-12 h-12 content-center text-white">%</button>
-        <button onClick={()=>output("/")} className="bg-orange-400 rounded-full  w-12 h-12 content-center text-white">÷</button>
-      </div>
-       <div className="flex gap-2" >
-        <button onClick={()=>changeNum(7)} className="bg-gray-800 rounded-full p- w-12 h-12 content-center text-white">7</button>
-        <button onClick={()=>changeNum(8)} className="bg-gray-800 rounded-full p- w-12 h-12 content-center text-white">8</button>
-        <button onClick={()=>changeNum(9)} className="bg-gray-800 rounded-full p- w-12 h-12 content-center text-white">9</button>
-        <button onClick={()=>output("*")}  className="bg-orange-400 rounded-full  w-12 h-12 content-center text-white">X</button>
-       </div>
+    setFirstNum("");
+    setOperator("");
+    setShowOperator("");
+  };
 
-       
-        <div className="flex gap-2" >
-        <button onClick={()=>changeNum(4)} className="bg-gray-800 rounded-full w-12 h-12 content-center text-white">4</button>
-        <button onClick={()=>changeNum(5)} className="bg-gray-800 rounded-full w-12 h-12 content-center text-white">5</button>
-        <button onClick={()=>changeNum(6)} className="bg-gray-800 rounded-full w-12 h-12 content-center text-white">6</button>
-        <button onClick={()=>output("-")} className="bg-orange-400 rounded-full  w-12 h-12 content-center text-white">-</button>
+  const [num, setNum] = useState("");
+
+  const changeNum = (numb) => {
+    console.log(num, numb);
+    if ((num === 0 || num === "") && numb !== 0) {
+      const newNum = numb.toString();
+      setNum(newNum);
+      return;
+    } else if ((num === 0 || num === "") && numb === 0) {
+      setNum(0);
+      return;
+    }
+    const newNum = num.toString() + numb.toString();
+    setNum(newNum);
+  };
+
+  // console.log(num);
+  return (
+    <>
+      <div className="bg-white h-250 ">
+        <div className="bg-black w-55 flex flex-col items-center ml-150 mt-25  rounded-3xl gap-1">
+          <h1 className="border-2 border-black h-25 w-55 rounded-3xl flex justify-end items-end pr-2">
+            {showOperator === "%" ? num : firstNum}
+            {showOperator}
+            {showOperator === "%" ? "" : num}{" "}
+          </h1>
+
+          <div className="flex gap-2">
+            <button
+              onClick={() => setNum(num.slice(0, num.length - 1))}
+              className="bg-gray-400 rounded-full  w-12 h-12 content-center text-white"
+            >
+              ⌫
+            </button>
+            <button
+              onClick={() => {
+                setFirstNum("");
+                setNum("");
+                setShowOperator("");
+              }}
+              className="bg-gray-400 rounded-full  w-12 h-12 content-center text-white"
+            >
+              Ac
+            </button>
+            <button
+              onClick={() => output("%")}
+              className="bg-gray-400 rounded-full  w-12 h-12 content-center text-white"
+            >
+              %
+            </button>
+            <button
+              onClick={() => output("/")}
+              className="bg-orange-400 rounded-full  w-12 h-12 content-center text-white"
+            >
+              ÷
+            </button>
+          </div>
+          <div className="flex gap-2">
+            <button
+              onClick={() => changeNum(7)}
+              className="bg-gray-800 rounded-full p- w-12 h-12 content-center text-white"
+            >
+              7
+            </button>
+            <button
+              onClick={() => changeNum(8)}
+              className="bg-gray-800 rounded-full p- w-12 h-12 content-center text-white"
+            >
+              8
+            </button>
+            <button
+              onClick={() => changeNum(9)}
+              className="bg-gray-800 rounded-full p- w-12 h-12 content-center text-white"
+            >
+              9
+            </button>
+            <button
+              onClick={() => output("*")}
+              className="bg-orange-400 rounded-full  w-12 h-12 content-center text-white"
+            >
+              X
+            </button>
+          </div>
+
+          <div className="flex gap-2">
+            <button
+              onClick={() => changeNum(4)}
+              className="bg-gray-800 rounded-full w-12 h-12 content-center text-white"
+            >
+              4
+            </button>
+            <button
+              onClick={() => changeNum(5)}
+              className="bg-gray-800 rounded-full w-12 h-12 content-center text-white"
+            >
+              5
+            </button>
+            <button
+              onClick={() => changeNum(6)}
+              className="bg-gray-800 rounded-full w-12 h-12 content-center text-white"
+            >
+              6
+            </button>
+            <button
+              onClick={() => output("-")}
+              className="bg-orange-400 rounded-full  w-12 h-12 content-center text-white"
+            >
+              -
+            </button>
+          </div>
+
+          <div className="flex gap-2">
+            <button
+              onClick={() => changeNum(1)}
+              className="bg-gray-800 rounded-full w-12 h-12 content-center text-white"
+            >
+              1
+            </button>
+            <button
+              onClick={() => changeNum(2)}
+              className="bg-gray-800 rounded-full w-12 h-12 content-center text-white"
+            >
+              2
+            </button>
+            <button
+              onClick={() => changeNum(3)}
+              className="bg-gray-800 rounded-full w-12 h-12 content-center text-white"
+            >
+              3
+            </button>
+            <button
+              onClick={() => output("+")}
+              className="bg-orange-400 rounded-full  w-12 h-12 content-center text-white"
+            >
+              +
+            </button>
+          </div>
+          <div className="flex gap-2">
+            <button
+              onClick={() => changeNum(0)}
+              className="bg-gray-800 rounded-full  w-12 h-12 content-center text-white"
+            >
+              0
+            </button>
+            <button className="bg-gray-800 rounded-full  w-12 h-12 content-center text-white">
+              +/-
+            </button>
+            <button className="bg-gray-800 rounded-full  w-12 h-12 content-center text-white">
+              .
+            </button>
+            <button
+              onClick={() => finalResult()}
+              className="bg-orange-400 rounded-full  w-12 h-12 content-center text-white"
+            >
+              =
+            </button>
+          </div>
         </div>
-
-
-        <div className="flex gap-2" >
-        <button onClick={()=>changeNum(1)} className="bg-gray-800 rounded-full w-12 h-12 content-center text-white">1</button>
-        <button onClick={()=>changeNum(2)} className="bg-gray-800 rounded-full w-12 h-12 content-center text-white">2</button>
-        <button onClick={()=>changeNum(3)} className="bg-gray-800 rounded-full w-12 h-12 content-center text-white">3</button>
-        <button onClick={()=>output("+")} className="bg-orange-400 rounded-full  w-12 h-12 content-center text-white">+</button>
-        </div>
-   <div className="flex gap-2" > 
-        <button onClick={()=>changeNum(0)} className="bg-gray-800 rounded-full  w-12 h-12 content-center text-white">0</button>
-        <button className="bg-gray-800 rounded-full  w-12 h-12 content-center text-white">+/-</button>
-        <button className="bg-gray-800 rounded-full  w-12 h-12 content-center text-white">.</button>
-        <button  onClick={()=>finalResult()} className="bg-orange-400 rounded-full  w-12 h-12 content-center text-white">=</button>
-   </div>
       </div>
-      
-    </div>
     </>
-
-} 
-export default Calculator
+  );
+};
+export default Calculator;
